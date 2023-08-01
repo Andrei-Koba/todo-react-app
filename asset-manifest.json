@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/todo-react-app/static/css/main.be60dd02.css",
+    "main.js": "/todo-react-app/static/js/main.39c32670.js",
+    "static/js/787.2843ca88.chunk.js": "/todo-react-app/static/js/787.2843ca88.chunk.js",
+    "static/media/mountains.jpg": "/todo-react-app/static/media/mountains.cb77037e1f02ca26359f.jpg",
+    "index.html": "/todo-react-app/index.html",
+    "main.be60dd02.css.map": "/todo-react-app/static/css/main.be60dd02.css.map",
+    "main.39c32670.js.map": "/todo-react-app/static/js/main.39c32670.js.map",
+    "787.2843ca88.chunk.js.map": "/todo-react-app/static/js/787.2843ca88.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.be60dd02.css",
+    "static/js/main.39c32670.js"
+  ]
+}
