@@ -1,0 +1,10 @@
+@import '../../variables';
+
+.appHeader {
+    background: $header-background;
+    background-size: cover;
+    color: white;
+    height: 250px;
+    position: absolute;
+    width: 100%;
+}

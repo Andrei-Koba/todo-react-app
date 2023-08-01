@@ -1,0 +1,20 @@
+.todoItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    font-weight: 400;
+    border-bottom: 1px solid lightgray;
+}
+
+.checkbox {
+    display: flex;
+    cursor: pointer;
+
+    input[type="checkbox"] {
+        display: none;
+    }
+}
+
+.mouseOn {
+    box-shadow: 1px 1px 50px lightgray;
+}

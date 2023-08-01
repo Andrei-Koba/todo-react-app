@@ -1,0 +1,19 @@
+.todoContainer {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 80px;
+    width: 40%;
+}
+
+.todoHeader {
+    display: flex;
+    justify-content: space-between;
+
+    h1 {
+        color: white;
+        font-family: "Lucida Console", "Courier New", monospace;
+        font-weight: bold;
+        letter-spacing: 15px;
+    }
+}

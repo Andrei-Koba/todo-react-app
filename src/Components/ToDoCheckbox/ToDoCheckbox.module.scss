@@ -1,0 +1,16 @@
+.styledCheckbox {
+    width: 25px;
+    height: 25px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    position: relative;
+}
+
+.checked {
+    background-image: url("./checkbox.png");
+    background-size: contain;
+}
+
+.unchecked {
+    border: 1px solid lightgrey;
+}

@@ -1,0 +1,9 @@
+.itemText {
+    margin-left: 15px;
+    line-height: 25px;
+     
+    &.crossed {
+        color: lightgray;
+        text-decoration: line-through;
+    }
+}
