@@ -1,8 +1,31 @@
 import { when } from 'jest-when';
-import { setToDoArray, getToDoArray } from './toDoLocalRepository';
+import {
+  getToDoArray,
+  addItemToArray,
+  removeItemFromArray,
+  changeItemStatusInArray,
+  clearCompletedItemsInArray,
+} from './toDoLocalRepository';
+import { nanoid } from 'nanoid';
 
-const getItemMock = jest.fn();
+const initialArray = [
+  {
+    id: 'testId1',
+    text: 'testText1',
+    isCompleted: true,
+  },
+  {
+    id: 'testId2',
+    text: 'testText2',
+    isCompleted: false,
+  },
+];
+
+const getItemMock = () => JSON.stringify(initialArray);
 const setItemMock = jest.fn();
+jest.mock('nanoid', () => ({
+  nanoid: () => 'generatedId',
+}));
 
 Object.defineProperty(window, 'localStorage', {
   value: {
@@ -12,9 +35,13 @@ Object.defineProperty(window, 'localStorage', {
 });
 
 describe('todo local repository', () => {
-  it('set todo array', () => {
+  it('addItemToArray', () => {
     // arrange
-    const newArray = [
+    const itemData = {
+      text: 'newItem',
+      isCompleted: false,
+    };
+    const expectedArray = [
       {
         id: 'testId1',
         text: 'testText1',
@@ -25,31 +52,46 @@ describe('todo local repository', () => {
         text: 'testText2',
         isCompleted: false,
       },
+      {
+        id: 'generatedId',
+        text: 'newItem',
+        isCompleted: false,
+      },
     ];
 
     // act
-    setToDoArray(newArray);
+    const actual = addItemToArray(itemData);
 
     // assert
-    expect(setItemMock).toBeCalledWith('todoArray', JSON.stringify(newArray));
+    expect(actual.payload).toStrictEqual(expectedArray);
+    expect(setItemMock).toBeCalledWith('todoArray', JSON.stringify(actual.payload));
   });
-  it('get todo array, with empty value', () => {
+  it('removeItemFromArray', () => {
     // arrange
-    when(getItemMock).calledWith('todoArray').mockReturnValue(null);
+    const itemId = 'testId1';
+    const expectedArray = [
+      {
+        id: 'testId2',
+        text: 'testText2',
+        isCompleted: false,
+      },
+    ];
 
     // act
-    const actual = getToDoArray();
+    const actual = removeItemFromArray(itemId);
 
     // assert
-    expect(actual).toStrictEqual([]);
+    expect(actual.payload).toStrictEqual(expectedArray);
+    expect(setItemMock).toBeCalledWith('todoArray', JSON.stringify(actual.payload));
   });
-  it('get todo array, with not empty value', () => {
+  it('changeItemStatusInArray', () => {
     // arrange
-    const expected = [
+    const itemId = 'testId1';
+    const expectedArray = [
       {
         id: 'testId1',
         text: 'testText1',
-        isCompleted: true,
+        isCompleted: false,
       },
       {
         id: 'testId2',
@@ -57,13 +99,29 @@ describe('todo local repository', () => {
         isCompleted: false,
       },
     ];
-    const stringifiedExpected = JSON.stringify(expected);
-    when(getItemMock).calledWith('todoArray').mockReturnValue(stringifiedExpected);
 
     // act
-    const actual = getToDoArray();
+    const actual = changeItemStatusInArray(itemId);
 
     // assert
-    expect(actual).toStrictEqual(expected);
+    expect(actual.payload).toStrictEqual(expectedArray);
+    expect(setItemMock).toBeCalledWith('todoArray', JSON.stringify(actual.payload));
+  });
+  it('clearCompletedItemsInArray', () => {
+    // arrange
+    const expectedArray = [
+      {
+        id: 'testId2',
+        text: 'testText2',
+        isCompleted: false,
+      },
+    ];
+
+    // act
+    const actual = clearCompletedItemsInArray();
+
+    // assert
+    expect(actual.payload).toStrictEqual(expectedArray);
+    expect(setItemMock).toBeCalledWith('todoArray', JSON.stringify(actual.payload));
   });
 });

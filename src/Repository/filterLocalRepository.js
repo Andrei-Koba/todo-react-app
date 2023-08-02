@@ -4,6 +4,7 @@ const filterKey = 'activeFilter';
 
 export function setFilter(newFilter) {
   localStorage.setItem(filterKey, newFilter);
+  return { payload: newFilter };
 }
 
 export function getFilter() {

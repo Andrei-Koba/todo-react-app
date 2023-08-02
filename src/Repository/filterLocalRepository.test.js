@@ -16,12 +16,14 @@ describe('filter local repository', () => {
   it('set active filter', () => {
     // arrange
     const newFilter = availableFilters.completed;
+    const expected = { payload: newFilter };
 
     // act
-    setFilter(newFilter);
+    const actual = setFilter(newFilter);
 
     // assert
     expect(setItemMock).toBeCalledWith('activeFilter', newFilter);
+    expect(actual).toStrictEqual(expected);
   });
   it('get active filter, with empty value', () => {
     // arrange

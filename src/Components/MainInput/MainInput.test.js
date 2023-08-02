@@ -3,7 +3,11 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import { render, fireEvent } from '@testing-library/react';
 import MainInput from './MainInput';
+import { addItem } from '../../Redux/StateSlices/todoSlice';
 
+jest.mock('nanoid', () => ({
+  nanoid: () => "testId",
+}));
 const mockStore = configureStore([]);
 
 describe('MainInput', () => {
@@ -15,7 +19,7 @@ describe('MainInput', () => {
     component = render(
       <Provider store={store}>
         <MainInput />
-      </Provider>,
+      </Provider>
     );
   });
 
@@ -32,7 +36,7 @@ describe('MainInput', () => {
     fireEvent.keyUp(mainInput, { key: 'Enter' });
     expect(store.getActions()).toEqual([
       {
-        payload: { isCompleted: false, text: 'testValue' },
+        payload: [{ id: 'testId', isCompleted: false, text: newValue }],
         type: 'todo/addItem',
       },
     ]);
