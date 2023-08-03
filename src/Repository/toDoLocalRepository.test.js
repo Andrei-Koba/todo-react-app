@@ -63,8 +63,11 @@ describe('todo local repository', () => {
     const actual = addItemToArray(itemData);
 
     // assert
-    expect(actual.payload).toStrictEqual(expectedArray);
-    expect(setItemMock).toBeCalledWith('todoArray', JSON.stringify(actual.payload));
+    expect(actual.payload).toStrictEqual({
+      ...itemData,
+      id: 'generatedId',
+    });
+    expect(setItemMock).toBeCalledWith('todoArray', JSON.stringify(expectedArray));
   });
   it('removeItemFromArray', () => {
     // arrange
@@ -81,8 +84,8 @@ describe('todo local repository', () => {
     const actual = removeItemFromArray(itemId);
 
     // assert
-    expect(actual.payload).toStrictEqual(expectedArray);
-    expect(setItemMock).toBeCalledWith('todoArray', JSON.stringify(actual.payload));
+    expect(actual.payload).toBe(itemId);
+    expect(setItemMock).toBeCalledWith('todoArray', JSON.stringify(expectedArray));
   });
   it('changeItemStatusInArray', () => {
     // arrange
@@ -104,8 +107,8 @@ describe('todo local repository', () => {
     const actual = changeItemStatusInArray(itemId);
 
     // assert
-    expect(actual.payload).toStrictEqual(expectedArray);
-    expect(setItemMock).toBeCalledWith('todoArray', JSON.stringify(actual.payload));
+    expect(actual.payload).toStrictEqual(itemId);
+    expect(setItemMock).toBeCalledWith('todoArray', JSON.stringify(expectedArray));
   });
   it('clearCompletedItemsInArray', () => {
     // arrange
@@ -118,10 +121,9 @@ describe('todo local repository', () => {
     ];
 
     // act
-    const actual = clearCompletedItemsInArray();
+    clearCompletedItemsInArray();
 
     // assert
-    expect(actual.payload).toStrictEqual(expectedArray);
-    expect(setItemMock).toBeCalledWith('todoArray', JSON.stringify(actual.payload));
+    expect(setItemMock).toBeCalledWith('todoArray', JSON.stringify(expectedArray));
   });
 });

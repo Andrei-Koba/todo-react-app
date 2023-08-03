@@ -19,14 +19,14 @@ export function addItemToArray(itemData) {
   };
   array.push(item);
   setToDoArray(array);
-  return { payload: array };
+  return { payload: item };
 }
 
 export function removeItemFromArray(itemId) {
   const array = getToDoArray();
   const newArray = array.filter((item) => item.id !== itemId);
   setToDoArray(newArray);
-  return { payload: newArray };
+  return { payload: itemId };
 }
 
 export function changeItemStatusInArray(itemId) {
@@ -34,12 +34,12 @@ export function changeItemStatusInArray(itemId) {
   const element = array.find((item) => item.id === itemId);
   element.isCompleted = !element.isCompleted;
   setToDoArray(array);
-  return { payload: array };
+  return { payload: itemId };
 }
 
 export function clearCompletedItemsInArray() {
   const array = getToDoArray();
   const newArray = array.filter((item) => !item.isCompleted);
   setToDoArray(newArray);
-  return { payload: newArray };
+  return { payload: {} };
 }

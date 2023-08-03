@@ -6,7 +6,7 @@ import MainInput from './MainInput';
 import { addItem } from '../../Redux/StateSlices/todoSlice';
 
 jest.mock('nanoid', () => ({
-  nanoid: () => "testId",
+  nanoid: () => 'testId',
 }));
 const mockStore = configureStore([]);
 
@@ -19,7 +19,7 @@ describe('MainInput', () => {
     component = render(
       <Provider store={store}>
         <MainInput />
-      </Provider>
+      </Provider>,
     );
   });
 
@@ -36,7 +36,7 @@ describe('MainInput', () => {
     fireEvent.keyUp(mainInput, { key: 'Enter' });
     expect(store.getActions()).toEqual([
       {
-        payload: [{ id: 'testId', isCompleted: false, text: newValue }],
+        payload: { id: 'testId', isCompleted: false, text: newValue },
         type: 'todo/addItem',
       },
     ]);
