@@ -23,9 +23,6 @@ const initialArray = [
 
 const getItemMock = () => JSON.stringify(initialArray);
 const setItemMock = jest.fn();
-jest.mock('nanoid', () => ({
-  nanoid: () => 'generatedId',
-}));
 
 Object.defineProperty(window, 'localStorage', {
   value: {
@@ -38,6 +35,7 @@ describe('todo local repository', () => {
   it('addItemToArray', () => {
     // arrange
     const itemData = {
+      id: 'testId',
       text: 'newItem',
       isCompleted: false,
     };
@@ -53,20 +51,16 @@ describe('todo local repository', () => {
         isCompleted: false,
       },
       {
-        id: 'generatedId',
+        id: 'testId',
         text: 'newItem',
         isCompleted: false,
       },
     ];
 
     // act
-    const actual = addItemToArray(itemData);
+    addItemToArray(itemData);
 
     // assert
-    expect(actual.payload).toStrictEqual({
-      ...itemData,
-      id: 'generatedId',
-    });
     expect(setItemMock).toBeCalledWith('todoArray', JSON.stringify(expectedArray));
   });
   it('removeItemFromArray', () => {
@@ -81,10 +75,9 @@ describe('todo local repository', () => {
     ];
 
     // act
-    const actual = removeItemFromArray(itemId);
+    removeItemFromArray(itemId);
 
     // assert
-    expect(actual.payload).toBe(itemId);
     expect(setItemMock).toBeCalledWith('todoArray', JSON.stringify(expectedArray));
   });
   it('changeItemStatusInArray', () => {
@@ -104,10 +97,9 @@ describe('todo local repository', () => {
     ];
 
     // act
-    const actual = changeItemStatusInArray(itemId);
+    changeItemStatusInArray(itemId);
 
     // assert
-    expect(actual.payload).toStrictEqual(itemId);
     expect(setItemMock).toBeCalledWith('todoArray', JSON.stringify(expectedArray));
   });
   it('clearCompletedItemsInArray', () => {

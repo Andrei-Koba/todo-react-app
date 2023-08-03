@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { nanoid } from 'nanoid';
 import styles from './MainInput.module.scss';
 import { addItem } from '../../Redux/StateSlices/todoSlice';
 
@@ -10,6 +11,7 @@ export default function MainInput() {
   const handleEnter = (event) => {
     if (event.key === 'Enter') {
       const item = {
+        id: nanoid(),
         text: value,
         isCompleted: false,
       };

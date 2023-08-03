@@ -1,11 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {
-  getToDoArray,
-  addItemToArray,
-  removeItemFromArray,
-  changeItemStatusInArray,
-  clearCompletedItemsInArray,
-} from '../../Repository/toDoLocalRepository';
+import { getToDoArray } from '../../Repository/toDoLocalRepository';
 import {
   addItemReducer,
   removeItemReducer,
@@ -19,19 +13,15 @@ export const todoSlice = createSlice({
   reducers: {
     addItem: {
       reducer: addItemReducer,
-      prepare: addItemToArray,
     },
     removeItem: {
       reducer: removeItemReducer,
-      prepare: removeItemFromArray,
     },
     changeItemStatus: {
       reducer: changeItemStatusReducer,
-      prepare: changeItemStatusInArray,
     },
     clearCompletedItems: {
       reducer: clearCompletedItemsReducer,
-      prepare: clearCompletedItemsInArray,
     },
   },
 });

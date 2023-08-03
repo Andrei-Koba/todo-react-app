@@ -1,4 +1,3 @@
-import { type } from '@testing-library/user-event/dist/type';
 import {
   addItemToArray,
   removeItemFromArray,
@@ -22,8 +21,8 @@ function performRepositoryAction(type, payload) {
 }
 
 const reposytoryMiddleware = (store) => (next) => (action) => {
-  action.payload = performRepositoryAction(action.type, action.payload);
   const result = next(action);
+  performRepositoryAction(action.type, action.payload);
   return result;
 };
 
