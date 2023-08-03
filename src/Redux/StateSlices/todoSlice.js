@@ -6,25 +6,31 @@ import {
   changeItemStatusInArray,
   clearCompletedItemsInArray,
 } from '../../Repository/toDoLocalRepository';
+import {
+  addItemReducer,
+  removeItemReducer,
+  changeItemStatusReducer,
+  clearCompletedItemsReducer,
+} from '../Reducers/todoReducers';
 
 export const todoSlice = createSlice({
   name: 'todo',
   initialState: getToDoArray(),
   reducers: {
     addItem: {
-      reducer: (state, action) => action.payload,
+      reducer: addItemReducer,
       prepare: addItemToArray,
     },
     removeItem: {
-      reducer: (state, action) => action.payload,
+      reducer: removeItemReducer,
       prepare: removeItemFromArray,
     },
     changeItemStatus: {
-      reducer: (state, action) => action.payload,
+      reducer: changeItemStatusReducer,
       prepare: changeItemStatusInArray,
     },
     clearCompletedItems: {
-      reducer: (state, action) => action.payload,
+      reducer: clearCompletedItemsReducer,
       prepare: clearCompletedItemsInArray,
     },
   },
