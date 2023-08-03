@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getFilter, setFilter } from '../../Repository/filterLocalRepository';
+import activeFilterReducer from '../Reducers/activeFilterReducer';
 
 export const activeFilterSlice = createSlice({
   name: 'activeFilter',
   initialState: getFilter(),
   reducers: {
     updateActiveFilter: {
-      reducer: (state, action) => action.payload,
+      reducer: activeFilterReducer,
       prepare: setFilter,
     },
   },
